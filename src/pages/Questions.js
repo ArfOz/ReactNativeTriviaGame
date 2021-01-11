@@ -38,7 +38,7 @@ const Questions = (props) => {
         <View style={{backgroundColor: '#3949ab', alignItems: 'center', padding: 20}}>
           <CountdownCircleTimer
             isPlaying
-            duration={20}
+            duration={4}
             onComplete={() => props.navigation.navigate('Finish')}
             colors={[
               ['#fff176', 0.4],

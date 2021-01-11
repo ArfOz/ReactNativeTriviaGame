@@ -46,7 +46,7 @@ const Intro = (props) => {
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
         <View style={introPage.container}>
-          <Text style={introPage.bannerText}>Tırı Vırı!</Text>
+          <Text style={introPage.bannerText}>Trivia Game</Text>
         </View>
 
         <View style={introPage.container}>
