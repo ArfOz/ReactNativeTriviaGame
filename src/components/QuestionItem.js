@@ -1,54 +1,38 @@
-import React,{useRef, useState} from "react";
-import { SafeAreaView } from "react-native";
-// import {} from ""
-import {useSelector, useSelector} from "react-redux";
-import {CountdownCircleTimer} from "react-native-countdown-circle-timer";
-import { FlatList } from "react-native-gesture-handler";
+import React from 'react';
+import base64 from 'react-native-base64';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 
-const Questions = (props) =>{
-    const listRef = useRef(null);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const questionList = useSelector((global) => global.questions);
-    const dispatch = useDispatch();
+import {questionItem} from './styles';
 
-    // const renderQuestion =({item}) =>(
-    //     <QuestionItem questionObject ={item} onAnswer={answer}/>
-    // );
-    const answer=(result) =>{
-        dispatch({type:"SET_SCORE", payload:{isTrue: result}});
-        setCurrentIndex(newIndex);
-    };
-    
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <View style={{flex:1}}>
-                <View style={{backgroundColor:"red", alignItems:"center", padding:"20"}}>
-                    <CountdownCircleTimer
-                     isPlaying
-                     duration={15}
-                     colors={[
-                        ['#004777', 0.4],
-                        ['#F7B801', 0.4],
-                        ['#A30000', 0.2],
-                      ]}>
-                          {({ remainingTime, animatedColor }) => (
-                                <Animated.Text style={{ color: animatedColor }}>
-                                    {remainingTime}
-                                </Animated.Text>
-    )}
-                    </CountdownCircleTimer>
-                </View>
-                <FlatList
-                ref={listRef}
-                keyExtractor={(_,i)=>i.toString()}
-                data={questionList}
-                horizontal
-                scrollEnabled={false}
-                renderItem={renderQuestion}
-                />
-            </View>
-        </SafeAreaView>
-    )
+const QuestionItem = (props) => {
+  return (
+    <View style={questionItem.container}>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={questionItem.questionContainer}>
+          <Text style={questionItem.questionText}>
+            {base64.decode(props.questionObject.question)}
+          </Text>
+        </View>
+      </View>
+
+      <View style={questionItem.buttonContainer}>
+        <TouchableOpacity
+          style={questionItem.trueButton}
+          onPress={() =>
+            props.onAnswer(base64.decode(props.questionObject.correct_answer) === 'True')
+          }>
+          <Text style={questionItem.buttonText}>True</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={questionItem.falseButton}
+          onPress={() =>
+            props.onAnswer(base64.decode(props.questionObject.correct_answer) === 'False')
+          }>
+          <Text style={questionItem.buttonText}>False</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
-export {Questions}
+export {QuestionItem};

@@ -1,18 +1,20 @@
-import React from "react";
-import { SafeAreaView } from "react-native";
+import React from 'react';
+import {SafeAreaView, View, Text} from 'react-native';
 
-import {useSelector} from "react-redux";
+import {finishPage} from './styles';
 
-const Finish = (props) =>{
-    const userScore = useSelector(global => global.score);
+import {useSelector} from 'react-redux'
 
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <View>
-                <Text>Your score is {userScore}</Text>
-            </View>
-        </SafeAreaView>
-    );
+const Finish = (props) => {
+  const userScore = useSelector(global => global.score);
+
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <View style={finishPage.container}>
+        <Text style={finishPage.text}>Your score is {userScore}</Text>
+      </View>
+    </SafeAreaView>
+  );
 };
 
-export {Finish}
+export {Finish};
